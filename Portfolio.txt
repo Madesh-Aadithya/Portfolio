@@ -58,3 +58,50 @@ Local:
 http://localhost:5173/
 
 Open that URL in your browser. If everything worked, you'll see the default Vite + React page.
+
+
+--------------------------------------------------IF USING UBUNTU SERVER------------------------------------------------------
+
+Method 1: SSH Local Port Forwarding (Recommended & Secure)
+This forwards traffic from port 5173 on your local computer to port 5173 on your Ubuntu server over a secure SSH connection.
+
+Keep Vite running on your Ubuntu server.
+
+Open a new terminal/command prompt on your local computer (not on the server).
+
+Run the following SSH tunneling command:
+
+Bash
+ssh -L 5173:localhost:5173 madesh@<your-server-ip>
+(Replace <your-server-ip> with the actual IP address or domain of your Ubuntu server).
+
+Open your local web browser and navigate to:
+
+Plaintext
+http://localhost:5173
+Method 2: Expose Vite to your Local Network
+If you want any device on your local network to access the site directly without SSH tunneling:
+
+Expose the host in Vite:
+Run the dev server with the --host flag:
+
+Bash
+npm run dev -- --host
+(Or edit your package.json script to include vite --host).
+
+Access via Server IP:
+Vite will output a Network address (e.g., [http://192.168.](http://192.168.)x.x:5173/). Enter that URL directly into your browser on any device connected to the same network.
+
+Check Firewall (If it doesn't load):
+If the page fails to load, ensure port 5173 is open on your server's firewall:
+
+Bash
+sudo ufw allow 5173/tcp
+Using VS Code SSH Extension?
+If you are connected to your server via VS Code Remote - SSH, VS Code usually handles this automatically:
+
+Go to the Ports tab in the bottom panel (next to Terminal / Output).
+
+Look for port 5173. If it's listed, click the globe icon or right-click to select Open in Browser.
+
+If it isn't listed, click Forward a Port and enter 5173.
