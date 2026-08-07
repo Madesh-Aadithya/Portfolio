@@ -1,0 +1,60 @@
+Step 1 — Create the Project
+Goal
+
+Create a clean React project using Vite.
+
+Why Vite?
+
+Vite is fast, modern, and widely used. It gives you:
+
+Fast development server
+Hot Module Replacement (instant updates)
+Simple configuration
+Excellent React support
+
+1. Open your terminal
+
+Navigate to the folder where you want the project.
+
+Example:
+
+cd Documents
+2. Create the project
+
+Run:
+
+npm create vite@latest portfolio-ui
+
+It will ask a few questions:
+
+Project name:
+
+Press Enter (or keep portfolio-ui).
+
+Select a framework:
+
+Choose:
+
+React
+Select a variant:
+
+Choose:
+
+JavaScript
+
+(We'll use JavaScript first. If you later want to learn TypeScript, we can migrate.)
+
+3. Enter the project folder
+cd portfolio-ui
+4. Install dependencies
+npm install
+5. Start the development server
+npm run dev
+
+You should see something like:
+
+Local:
+
+http://localhost:5173/
+
+Open that URL in your browser. If everything worked, you'll see the default Vite + React page.

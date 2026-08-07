@@ -1,0 +1,107 @@
+you can install it after Ubuntu Server is already installed.
+
+1. Update your package list
+sudo apt update
+2. Install OpenSSH Server
+sudo apt install openssh-server -y
+3. Start the SSH service
+sudo systemctl start ssh
+4. Enable it to start automatically on boot
+sudo systemctl enable ssh
+5. Verify it's running
+sudo systemctl status ssh
+
+You should see something like:
+
+Active: active (running)
+
+Press Q to exit the status screen.
+
+6. Find your server's IP address
+hostname -I
+
+Example output:
+
+192.168.1.105
+7. Test from Windows
+
+Open PowerShell or Command Prompt on Windows:
+
+ssh your_username@192.168.1.105
+
+For example:
+
+ssh madesh@192.168.1.105
+
+If it's your first connection, you'll see:
+
+Are you sure you want to continue connecting (yes/no)?
+
+Type:
+
+yes
+
+Then enter your Ubuntu password.
+
+
+Install VS Code
+
+On Windows, install VS Code.
+
+Step 8: Install Remote - SSH Extension
+
+In VS Code:
+
+Extensions
+
+Search:
+
+Remote - SSH
+
+Install the extension published by Microsoft.
+
+Step 9: Connect
+
+Press:
+
+Ctrl + Shift + P
+
+Search:
+
+Remote-SSH: Connect to Host
+
+Choose:
+
+Add New SSH Host
+
+Enter:
+
+ssh madesh@192.168.56.101
+
+Replace the IP and username with yours.
+
+Save it.
+
+Step 10: Connect
+
+Click the green icon in the lower-left corner of VS Code.
+
+Choose:
+
+Connect to Host
+
+Select:
+
+madesh@192.168.56.101
+
+Enter your password.
+
+VS Code will install its server component automatically.
+
+After a few seconds you'll see:
+
+SSH: Ubuntu
+
+in the bottom-left corner.
+
+Now you're editing files directly on the Ubuntu Server.
