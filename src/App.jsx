@@ -1,8 +1,10 @@
 function App() {
   return (
-    <h1 className="text-5xl font-bold text-blue-500">
-      My Portfolio
-    </h1>
+    <div>
+      <h1 className="text-4xl font-bold">
+        My Portfolio
+      </h1>
+    </div>
   )
 }
 
