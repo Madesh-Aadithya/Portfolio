@@ -615,3 +615,485 @@ Next step:
 **Step 4 — Install React Router and create the basic page navigation system.**
 
 -----------------------------------------------------------------------------------------------------------------------------
+
+Keeping everything on **one page** is a good choice for a portfolio. The navbar can simply scroll to each section (Hero, About, Skills, Projects, etc.), while the admin panel will be on separate routes later.
+
+So our routes will be:
+
+```text
+/          → Portfolio (single-page)
+/admin     → Login
+/dashboard → Admin Dashboard
+```
+
+---
+
+# Step 4 — Install React Router
+
+## 4.1 Install it
+
+```bash
+npm install react-router-dom
+```
+
+---
+
+## 4.2 Create pages
+
+Inside `src/pages/`, create:
+
+```text
+Home.jsx
+```
+
+`Home.jsx`
+
+```jsx
+function Home() {
+  return (
+    <main>
+      <h1 className="text-4xl font-bold">Home Page</h1>
+    </main>
+  );
+}
+
+export default Home;
+```
+
+---
+
+## 4.3 Update `App.jsx`
+
+Replace it with:
+
+```jsx
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+---
+
+## Why use React Router if everything is on one page?
+
+Even though the portfolio is a single page, we'll later add:
+
+* `/admin`
+* `/dashboard`
+
+without changing the project structure.
+
+---
+
+## Commit
+
+```bash
+git add .
+git commit -m "Setup React Router"
+git push
+```
+
+✅ At this point, visiting `http://localhost:5173/` should display **Home Page**.
+
+**Next step:** We'll create the **MainLayout** (Navbar + Footer + content area), which every public page will use. This keeps the project organized and makes adding sections much easier.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+# Step 5 — Create the Main Layout
+
+Since your portfolio is **one page**, we'll create one layout that contains:
+
+```text
+Navbar
+   ↓
+Portfolio Sections
+   ↓
+Footer
+```
+
+We won't build the actual sections yet. First, we'll create the structure.
+
+---
+
+## 5.1 Create `MainLayout.jsx`
+
+Create:
+
+```text
+src/components/layout/MainLayout.jsx
+```
+
+Add:
+
+```jsx
+function MainLayout({ children }) {
+  return (
+    <div className="min-h-screen">
+      <header>
+        Navbar will go here
+      </header>
+
+      <main>
+        {children}
+      </main>
+
+      <footer>
+        Footer will go here
+      </footer>
+    </div>
+  );
+}
+
+export default MainLayout;
+```
+
+### What is `children`?
+
+When we write:
+
+```jsx
+<MainLayout>
+  <Home />
+</MainLayout>
+```
+
+React puts `<Home />` into:
+
+```jsx
+{children}
+```
+
+So `MainLayout` becomes a reusable wrapper.
+
+---
+
+## 5.2 Update `App.jsx`
+
+Change it to:
+
+```jsx
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import MainLayout from "./components/layout/MainLayout";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <MainLayout>
+              <Home />
+            </MainLayout>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+---
+
+## 5.3 Update `Home.jsx`
+
+For now, make it:
+
+```jsx
+function Home() {
+  return (
+    <section className="min-h-screen flex items-center justify-center">
+      <h1 className="text-4xl font-bold">
+        My Portfolio
+      </h1>
+    </section>
+  );
+}
+
+export default Home;
+```
+
+---
+
+## 5.4 Test it
+
+Run:
+
+```bash
+npm run dev -- --host 0.0.0.0
+```
+
+You should see:
+
+```text
+My Portfolio
+```
+
+The important thing is that your application now has this hierarchy:
+
+```text
+App
+ │
+ └── BrowserRouter
+      │
+      └── Route /
+           │
+           └── MainLayout
+                │
+                ├── Header
+                ├── Home
+                └── Footer
+```
+
+---
+
+## 5.5 Commit
+
+If everything works:
+
+```bash
+git add .
+git commit -m "Create main portfolio layout"
+git push
+```
+
+### Next step
+
+**Step 6 — Build the Navbar.**
+
+We'll make it scroll smoothly to sections like:
+
+`About` → `Skills` → `Projects` → `Certifications` → `Contact`
+
+No separate pages for those.
+
+
+------------------------------------------------------------------------------------------------------------------------------
+
+# Step 6 — Build the Navbar
+
+Now we'll create the navigation bar for our **single-page portfolio**.
+
+The navbar will eventually look like:
+
+```text
+┌──────────────────────────────────────────────────────────────┐
+│ Madesh       About  Skills  Projects  Certificates  Contact │
+└──────────────────────────────────────────────────────────────┘
+```
+
+For now, we'll only make the navigation work. We'll style it properly later.
+
+---
+
+## 6.1 Create `Navbar.jsx`
+
+Create:
+
+```text
+src/components/layout/Navbar.jsx
+```
+
+Add:
+
+```jsx
+function Navbar() {
+  const navItems = [
+    { name: "About", id: "about" },
+    { name: "Skills", id: "skills" },
+    { name: "Projects", id: "projects" },
+    { name: "Certificates", id: "certificates" },
+    { name: "Contact", id: "contact" },
+  ];
+
+  const handleScroll = (id) => {
+    document.getElementById(id)?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
+  return (
+    <nav>
+      <button onClick={() => handleScroll("home")}>
+        Madesh
+      </button>
+
+      {navItems.map((item) => (
+        <button
+          key={item.id}
+          onClick={() => handleScroll(item.id)}
+        >
+          {item.name}
+        </button>
+      ))}
+    </nav>
+  );
+}
+
+export default Navbar;
+```
+
+### What's happening here?
+
+This:
+
+```jsx
+document.getElementById(id)?.scrollIntoView({
+  behavior: "smooth",
+});
+```
+
+finds a section by its `id` and smoothly scrolls to it.
+
+For example:
+
+```html
+<section id="projects">
+```
+
+can be reached with:
+
+```jsx
+handleScroll("projects");
+```
+
+---
+
+# 6.2 Add Navbar to `MainLayout`
+
+Open:
+
+```text
+src/components/layout/MainLayout.jsx
+```
+
+Change it to:
+
+```jsx
+import Navbar from "./Navbar";
+
+function MainLayout({ children }) {
+  return (
+    <div className="min-h-screen">
+      <header>
+        <Navbar />
+      </header>
+
+      <main>
+        {children}
+      </main>
+
+      <footer>
+        Footer will go here
+      </footer>
+    </div>
+  );
+}
+
+export default MainLayout;
+```
+
+---
+
+# 6.3 Give Home the `home` ID
+
+Change `Home.jsx`:
+
+```jsx
+function Home() {
+  return (
+    <section
+      id="home"
+      className="min-h-screen flex items-center justify-center"
+    >
+      <h1 className="text-4xl font-bold">
+        My Portfolio
+      </h1>
+    </section>
+  );
+}
+
+export default Home;
+```
+
+---
+
+# 6.4 Test
+
+Start Vite:
+
+```bash
+npm run dev -- --host 0.0.0.0
+```
+
+You should see the navigation buttons.
+
+At the moment, clicking:
+
+```text
+About
+Skills
+Projects
+Certificates
+Contact
+```
+
+won't do anything because those sections don't exist yet.
+
+That's expected.
+
+We'll create those sections next.
+
+---
+
+# 6.5 Commit
+
+```bash
+git add .
+git commit -m "Create single page portfolio navbar"
+git push
+```
+
+### One important decision
+
+We're **not** going to create five separate React pages for your portfolio information.
+
+We'll eventually have:
+
+```text
+Home
+│
+├── Hero
+├── About
+├── Skills
+├── Projects
+├── Certificates
+├── Contact
+└── Footer
+```
+
+all rendered on `/`.
+
+The **admin panel** remains separate:
+
+```text
+/admin
+```
+
+That's a clean architecture for what you're trying to build.
+
+**Next: Step 7 — Create the portfolio sections with placeholder content and make the navbar scrolling actually work.**
