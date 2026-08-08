@@ -1868,3 +1868,402 @@ That's it for Step 11.
 
 ------------------------------------------------------------------------------------------------------------------------------
 
+# Step 12 — Build the Skills Section
+
+Now we'll create the **Skills** section.
+
+For now, we'll hard-code a few skills. Later, the admin dashboard will let you add/remove/edit them without touching the frontend code.
+
+## 12.1 Replace `Skills.jsx`
+
+Open:
+
+```text
+src/components/sections/Skills.jsx
+```
+
+Replace everything with:
+
+```jsx
+function Skills() {
+  const skills = [
+    "Linux",
+    "Git & GitHub",
+    "Docker",
+    "Nginx",
+    "Networking",
+    "Python",
+    "JavaScript",
+    "React",
+    "Node.js",
+    "Cloud",
+  ];
+
+  return (
+    <section
+      id="skills"
+      className="px-6 py-24"
+    >
+      <div className="mx-auto max-w-6xl">
+
+        <p className="mb-3 text-sm font-medium uppercase tracking-[0.3em] text-white/50">
+          Skills
+        </p>
+
+        <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
+          Technologies I work with.
+        </h2>
+
+        <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
+          {skills.map((skill) => (
+            <div
+              key={skill}
+              className="rounded-xl border border-white/10 bg-white/5 p-5 text-center transition hover:-translate-y-1 hover:bg-white/10"
+            >
+              <span className="font-medium">
+                {skill}
+              </span>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+export default Skills;
+```
+
+## 12.2 What's new?
+
+This is important:
+
+```jsx
+const skills = [
+  "Linux",
+  "Git & GitHub",
+  "Docker",
+  ...
+];
+```
+
+We're storing the skills in an **array**.
+
+Then:
+
+```jsx
+skills.map((skill) => (
+```
+
+creates a card for every skill.
+
+So instead of writing 10 cards manually, React generates them for us.
+
+For example, adding:
+
+```jsx
+"Terraform",
+```
+
+to the array automatically creates another card.
+
+---
+
+## 12.3 Test it
+
+Click **Skills** in your navbar.
+
+You should see something like:
+
+```text
+SKILLS
+
+Technologies I work with.
+
+┌────────┐ ┌────────┐ ┌────────┐
+│ Linux  │ │  Git   │ │ Docker │
+└────────┘ └────────┘ └────────┘
+
+┌────────┐ ┌────────┐ ┌────────┐
+│ Nginx  │ │ Python │ │ React  │
+└────────┘ └────────┘ └────────┘
+```
+
+The grid automatically adjusts for different screen sizes.
+
+---
+
+## 12.4 Commit
+
+```bash
+git add .
+git commit -m "Build skills section"
+git push
+```
+
+That's Step 12.
+
+**Next → Step 13: Build the Projects section.** This one will be slightly more interesting because we'll create reusable `ProjectCard` components.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+# Step 13 — Build the Projects Section
+
+Now we'll make the **Projects** section.
+
+This is where we'll introduce an important React concept: **reusable components**.
+
+Instead of putting all the project card code inside `Projects.jsx`, we'll create a separate `ProjectCard`.
+
+---
+
+## 13.1 Create `ProjectCard.jsx`
+
+Create:
+
+```text
+src/components/common/ProjectCard.jsx
+```
+
+Add:
+
+```jsx
+function ProjectCard({ project }) {
+  return (
+    <article className="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:bg-white/10">
+      <div className="flex items-start justify-between gap-4">
+        <h3 className="text-xl font-semibold">
+          {project.title}
+        </h3>
+
+        <span className="text-sm text-white/40">
+          {project.year}
+        </span>
+      </div>
+
+      <p className="mt-4 leading-7 text-white/60">
+        {project.description}
+      </p>
+
+      <div className="mt-5 flex flex-wrap gap-2">
+        {project.technologies.map((technology) => (
+          <span
+            key={technology}
+            className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/60"
+          >
+            {technology}
+          </span>
+        ))}
+      </div>
+
+      <div className="mt-6 flex gap-4">
+        {project.github && (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noreferrer"
+            className="text-sm font-medium text-white/70 transition hover:text-white"
+          >
+            GitHub →
+          </a>
+        )}
+
+        {project.demo && (
+          <a
+            href={project.demo}
+            target="_blank"
+            rel="noreferrer"
+            className="text-sm font-medium text-white/70 transition hover:text-white"
+          >
+            Live Demo →
+          </a>
+        )}
+      </div>
+    </article>
+  );
+}
+
+export default ProjectCard;
+```
+
+### Why create a separate component?
+
+Because every project has the same structure:
+
+```text
+Project
+├── Title
+├── Year
+├── Description
+├── Technologies
+└── Links
+```
+
+So we can reuse:
+
+```jsx
+<ProjectCard project={project} />
+```
+
+for every project.
+
+---
+
+# 13.2 Replace `Projects.jsx`
+
+Open:
+
+```text
+src/components/sections/Projects.jsx
+```
+
+Replace everything with:
+
+```jsx
+import ProjectCard from "../common/ProjectCard";
+
+function Projects() {
+  const projects = [
+    {
+      title: "Portfolio Website",
+      year: "2026",
+      description:
+        "A modern personal portfolio built with React, Tailwind CSS, and an Express backend.",
+      technologies: ["React", "Tailwind CSS", "Node.js"],
+      github: "https://github.com/",
+      demo: "",
+    },
+    {
+      title: "Static Website Deployment",
+      year: "2026",
+      description:
+        "A DevOps project focused on containerizing a website and deploying it with Docker and Nginx.",
+      technologies: ["Linux", "Docker", "Nginx", "Git"],
+      github: "https://github.com/",
+      demo: "",
+    },
+  ];
+
+  return (
+    <section
+      id="projects"
+      className="px-6 py-24"
+    >
+      <div className="mx-auto max-w-6xl">
+
+        <p className="mb-3 text-sm font-medium uppercase tracking-[0.3em] text-white/50">
+          Projects
+        </p>
+
+        <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
+          Things I've built.
+        </h2>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          {projects.map((project) => (
+            <ProjectCard
+              key={project.title}
+              project={project}
+            />
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+export default Projects;
+```
+
+---
+
+## 13.3 Understand the data
+
+This part:
+
+```jsx
+const projects = [
+  {
+    title: "Portfolio Website",
+    year: "2026",
+    description: "...",
+    technologies: ["React", "Tailwind CSS", "Node.js"],
+    github: "...",
+    demo: "",
+  },
+];
+```
+
+is **project data**.
+
+And this:
+
+```jsx
+<ProjectCard project={project} />
+```
+
+is the **UI component**.
+
+That's a pattern we'll use heavily later.
+
+Eventually:
+
+```text
+Admin Dashboard
+       ↓
+Express API
+       ↓
+Project data
+       ↓
+Projects.jsx
+       ↓
+ProjectCard
+```
+
+So when you add a project through your admin panel, the public portfolio can automatically display it.
+
+---
+
+## 13.4 Test
+
+Click:
+
+**Projects**
+
+You should now see two project cards.
+
+The technologies should appear as small tags.
+
+---
+
+## 13.5 One thing to change
+
+Don't worry about the GitHub URLs yet.
+
+We used:
+
+```text
+https://github.com/
+```
+
+only as placeholders.
+
+We'll replace them with your actual project links when your projects are ready.
+
+---
+
+## 13.6 Commit
+
+```bash
+git add .
+git commit -m "Build reusable project cards"
+git push
+```
+
+That's Step 13.
+
+**Next → Step 14: Build the Certifications section.**
+
+------------------------------------------------------------------------------------------------------------------------------
