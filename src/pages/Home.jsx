@@ -1,13 +1,20 @@
+import Hero from "../components/sections/Hero";
+import About from "../components/sections/About";
+import Skills from "../components/sections/Skills";
+import Projects from "../components/sections/Projects";
+import Certificates from "../components/sections/Certificates";
+import Contact from "../components/sections/Contact";
+
 function Home() {
   return (
-    <section
-      id="home"
-      className="min-h-screen flex items-center justify-center"
-    >
-      <h1 className="text-4xl font-bold">
-        My Portfolio
-      </h1>
-    </section>
+    <>
+      <Hero />
+      <About />
+      <Skills />
+      <Projects />
+      <Certificates />
+      <Contact />
+    </>
   );
 }
 
