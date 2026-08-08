@@ -1097,3 +1097,310 @@ The **admin panel** remains separate:
 That's a clean architecture for what you're trying to build.
 
 **Next: Step 7 — Create the portfolio sections with placeholder content and make the navbar scrolling actually work.**
+
+------------------------------------------------------------------------------------------------------------------------------
+
+# Step 7 — Create the Portfolio Sections
+
+Now we'll create the sections that make up your **single-page portfolio**.
+
+Don't worry about making them beautiful yet. We're only creating the **structure**.
+
+---
+
+## 7.1 Create the section files
+
+Inside:
+
+```text
+src/components/sections/
+```
+
+create:
+
+```text
+Hero.jsx
+About.jsx
+Skills.jsx
+Projects.jsx
+Certificates.jsx
+Contact.jsx
+```
+
+Your structure becomes:
+
+```text
+src/
+└── components/
+    └── sections/
+        ├── Hero.jsx
+        ├── About.jsx
+        ├── Skills.jsx
+        ├── Projects.jsx
+        ├── Certificates.jsx
+        └── Contact.jsx
+```
+
+---
+
+# 7.2 Create the sections
+
+### `Hero.jsx`
+
+```jsx
+function Hero() {
+  return (
+    <section
+      id="home"
+      className="min-h-screen flex items-center justify-center"
+    >
+      <h1 className="text-5xl font-bold">
+        Hello, I'm Madesh
+      </h1>
+    </section>
+  );
+}
+
+export default Hero;
+```
+
+### `About.jsx`
+
+```jsx
+function About() {
+  return (
+    <section id="about" className="min-h-screen p-10">
+      <h2 className="text-4xl font-bold">About Me</h2>
+    </section>
+  );
+}
+
+export default About;
+```
+
+### `Skills.jsx`
+
+```jsx
+function Skills() {
+  return (
+    <section id="skills" className="min-h-screen p-10">
+      <h2 className="text-4xl font-bold">Skills</h2>
+    </section>
+  );
+}
+
+export default Skills;
+```
+
+### `Projects.jsx`
+
+```jsx
+function Projects() {
+  return (
+    <section id="projects" className="min-h-screen p-10">
+      <h2 className="text-4xl font-bold">Projects</h2>
+    </section>
+  );
+}
+
+export default Projects;
+```
+
+### `Certificates.jsx`
+
+```jsx
+function Certificates() {
+  return (
+    <section id="certificates" className="min-h-screen p-10">
+      <h2 className="text-4xl font-bold">Certificates</h2>
+    </section>
+  );
+}
+
+export default Certificates;
+```
+
+### `Contact.jsx`
+
+```jsx
+function Contact() {
+  return (
+    <section id="contact" className="min-h-screen p-10">
+      <h2 className="text-4xl font-bold">Contact</h2>
+    </section>
+  );
+}
+
+export default Contact;
+```
+
+---
+
+# 7.3 Put them inside `Home.jsx`
+
+Now `Home.jsx` becomes the page that combines everything.
+
+```jsx
+import Hero from "../components/sections/Hero";
+import About from "../components/sections/About";
+import Skills from "../components/sections/Skills";
+import Projects from "../components/sections/Projects";
+import Certificates from "../components/sections/Certificates";
+import Contact from "../components/sections/Contact";
+
+function Home() {
+  return (
+    <>
+      <Hero />
+      <About />
+      <Skills />
+      <Projects />
+      <Certificates />
+      <Contact />
+    </>
+  );
+}
+
+export default Home;
+```
+
+---
+
+# 7.4 Test it
+
+Run:
+
+```bash
+npm run dev -- --host 0.0.0.0
+```
+
+Now you should be able to click:
+
+```text
+About
+Skills
+Projects
+Certificates
+Contact
+```
+
+and the page should smoothly scroll to each section.
+
+You now have the basic architecture:
+
+```text
+App
+│
+└── MainLayout
+    │
+    ├── Navbar
+    │
+    └── Home
+        │
+        ├── Hero
+        ├── About
+        ├── Skills
+        ├── Projects
+        ├── Certificates
+        └── Contact
+```
+
+That's an important milestone. **The basic frontend architecture is now in place.**
+
+---
+
+## 7.5 Commit
+
+```bash
+git add .
+git commit -m "Create portfolio page sections"
+git push
+```
+
+### Next step
+
+**Step 8 — Build the global theme.**
+
+We'll decide the actual **dark background, text colors, accent color, typography, spacing, and overall visual language** before we start making the Hero section look professional.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+## Step 8 — Create the Global Theme
+
+Now we'll set the **visual foundation** of the portfolio before building the actual sections.
+
+We'll keep this step small: **colors + background + smooth scrolling**.
+
+### 8.1 Replace `src/index.css`
+
+Replace everything with:
+
+```css
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #0a0a0a;
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+```
+
+### What we just did
+
+```css
+background: #0a0a0a;
+```
+
+Gives us the dark portfolio background.
+
+```css
+color: #ffffff;
+```
+
+Makes the default text white.
+
+```css
+scroll-behavior: smooth;
+```
+
+Makes the navbar scrolling smooth.
+
+---
+
+### 8.2 Test it
+
+Run:
+
+```bash
+npm run dev -- --host 0.0.0.0
+```
+
+Your page should now have a **dark background** with white text.
+
+Don't worry about the design looking basic yet. We're going to build the actual visual design section by section.
+
+### 8.3 Commit
+
+```bash
+git add .
+git commit -m "Create global portfolio theme"
+git push
+```
+
+That's it for Step 8.
+
+**Next: Step 9 — Build the Navbar properly**: dark glass effect, spacing, hover animations, responsive behavior, and the portfolio name.
+
+
+------------------------------------------------------------------------------------------------------------------------------
