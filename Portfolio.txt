@@ -302,3 +302,316 @@ Your first real UI technology is now installed.
 
 Next step:
 **Step 3 — Clean Vite default files and prepare a professional project structure.**
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+# Step 3 — Clean Vite Default Files & Prepare Project Structure
+
+## Goal
+
+Remove the Vite demo code and create a clean foundation for our portfolio.
+
+Right now Vite created files for learning/demo purposes. We don't need them.
+
+---
+
+## 3.1 Clean `src` folder
+
+Currently you have:
+
+```
+src/
+ ├── assets/
+ │    └── react.svg
+ ├── App.jsx
+ ├── App.css
+ ├── index.css
+ └── main.jsx
+```
+
+---
+
+## Delete:
+
+Remove:
+
+```
+src/assets/react.svg
+src/App.css
+```
+
+We won't use them.
+
+---
+
+## 3.2 Update `App.jsx`
+
+Open:
+
+```
+src/App.jsx
+```
+
+Replace everything:
+
+```jsx
+function App() {
+  return (
+    <div>
+      <h1 className="text-4xl font-bold">
+        My Portfolio
+      </h1>
+    </div>
+  )
+}
+
+export default App
+```
+
+This is our temporary root component.
+
+---
+
+## 3.3 Clean `index.css`
+
+Open:
+
+```
+src/index.css
+```
+
+Replace with:
+
+```css
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+```
+
+Explanation:
+
+* `@import "tailwindcss"` → enables Tailwind
+* `box-sizing` → makes sizing predictable
+* remove browser default margin
+
+---
+
+## 3.4 Create Professional Folder Structure
+
+Inside `src`, create:
+
+```
+src/
+
+├── assets/
+│
+├── components/
+│   ├── common/
+│   ├── layout/
+│   └── sections/
+│
+├── pages/
+│
+├── admin/
+│
+├── hooks/
+│
+├── utils/
+│
+├── routes/
+│
+├── styles/
+│
+├── App.jsx
+├── main.jsx
+└── index.css
+```
+
+---
+
+## What each folder is for
+
+### `components/`
+
+Reusable UI pieces.
+
+Example:
+
+```
+components/
+ ├── Navbar
+ ├── Button
+ ├── Card
+ └── ProjectCard
+```
+
+Used in multiple pages.
+
+---
+
+### `components/layout/`
+
+Big page structures.
+
+Example:
+
+```
+Navbar
+Footer
+MainLayout
+```
+
+---
+
+### `components/sections/`
+
+Portfolio sections.
+
+Example:
+
+```
+Hero
+About
+Skills
+Projects
+Contact
+```
+
+---
+
+### `pages/`
+
+Full pages.
+
+Example:
+
+```
+Home.jsx
+Projects.jsx
+Certificates.jsx
+```
+
+---
+
+### `admin/`
+
+Your private dashboard.
+
+Example:
+
+```
+admin/
+ ├── Login
+ ├── Dashboard
+ ├── ManageProjects
+```
+
+---
+
+### `hooks/`
+
+Custom React logic.
+
+Example:
+
+```
+useFetch.js
+useAuth.js
+```
+
+---
+
+### `utils/`
+
+Helper functions.
+
+Example:
+
+```
+formatDate.js
+api.js
+```
+
+---
+
+### `routes/`
+
+All navigation rules.
+
+Example:
+
+```
+public routes
+admin routes
+```
+
+---
+
+### `styles/`
+
+Extra CSS if needed later.
+
+---
+
+## 3.5 Check your project
+
+Your final structure should look like:
+
+```
+portfolio-ui
+
+src
+│
+├── assets
+├── components
+│   ├── common
+│   ├── layout
+│   └── sections
+│
+├── pages
+├── admin
+├── hooks
+├── utils
+├── routes
+├── styles
+│
+├── App.jsx
+├── main.jsx
+└── index.css
+```
+
+---
+
+## 3.6 Commit this step
+
+```bash
+git add .
+git commit -m "Clean Vite files and create project structure"
+git push
+```
+
+---
+
+## What you learned
+
+You now have the same type of structure used in production React projects:
+
+* Separation of UI
+* Separation of pages
+* Space for admin panel
+* Space for backend integration later
+
+---
+
+Next step:
+
+**Step 4 — Install React Router and create the basic page navigation system.**
+
+-----------------------------------------------------------------------------------------------------------------------------
