@@ -2267,3 +2267,192 @@ That's Step 13.
 **Next → Step 14: Build the Certifications section.**
 
 ------------------------------------------------------------------------------------------------------------------------------
+
+# Step 14 — Build the Certifications Section
+
+This section will display your certifications in reusable cards.
+
+We'll use the same idea from the Projects section: **data + reusable component**.
+
+---
+
+## 14.1 Create `CertificateCard.jsx`
+
+Create:
+
+```text
+src/components/common/CertificateCard.jsx
+```
+
+Add:
+
+```jsx
+function CertificateCard({ certificate }) {
+  return (
+    <article className="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:bg-white/10">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h3 className="text-xl font-semibold">
+            {certificate.name}
+          </h3>
+
+          <p className="mt-2 text-sm text-white/50">
+            {certificate.issuer}
+          </p>
+        </div>
+
+        <span className="text-sm text-white/40">
+          {certificate.year}
+        </span>
+      </div>
+
+      <p className="mt-4 leading-7 text-white/60">
+        {certificate.description}
+      </p>
+
+      {certificate.link && (
+        <a
+          href={certificate.link}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-6 inline-block text-sm font-medium text-white/70 transition hover:text-white"
+        >
+          View Certificate →
+        </a>
+      )}
+    </article>
+  );
+}
+
+export default CertificateCard;
+```
+
+---
+
+# 14.2 Replace `Certificates.jsx`
+
+Open:
+
+```text
+src/components/sections/Certificates.jsx
+```
+
+Replace everything with:
+
+```jsx
+import CertificateCard from "../common/CertificateCard";
+
+function Certificates() {
+  const certificates = [
+    {
+      name: "Your Certification",
+      issuer: "Certification Provider",
+      year: "2026",
+      description:
+        "A short description of what this certification covers.",
+      link: "",
+    },
+    {
+      name: "Another Certification",
+      issuer: "Certification Provider",
+      year: "2026",
+      description:
+        "A short description of what this certification covers.",
+      link: "",
+    },
+  ];
+
+  return (
+    <section
+      id="certificates"
+      className="px-6 py-24"
+    >
+      <div className="mx-auto max-w-6xl">
+
+        <p className="mb-3 text-sm font-medium uppercase tracking-[0.3em] text-white/50">
+          Certifications
+        </p>
+
+        <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
+          Certifications & learning.
+        </h2>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          {certificates.map((certificate) => (
+            <CertificateCard
+              key={`${certificate.name}-${certificate.year}`}
+              certificate={certificate}
+            />
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+export default Certificates;
+```
+
+---
+
+## 14.3 Understand what we did
+
+The data:
+
+```jsx
+const certificates = [
+  {
+    name: "Your Certification",
+    issuer: "Certification Provider",
+    year: "2026",
+  },
+];
+```
+
+gets passed into:
+
+```jsx
+<CertificateCard certificate={certificate} />
+```
+
+Then the card accesses it through:
+
+```jsx
+certificate.name
+certificate.issuer
+certificate.year
+```
+
+This separation will become very useful when we connect the backend.
+
+---
+
+## 14.4 Test
+
+Click:
+
+**Certificates**
+
+You should see two temporary certification cards.
+
+They're placeholders for now.
+
+**Don't put fake certifications on your real portfolio.** We'll replace these with your actual certifications later.
+
+---
+
+## 14.5 Commit
+
+```bash
+git add .
+git commit -m "Build certifications section"
+git push
+```
+
+That's Step 14.
+
+**Next → Step 15: Build the Contact section.**
+
+------------------------------------------------------------------------------------------------------------------------------
+
