@@ -1,4 +1,5 @@
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 function MainLayout({ children }) {
   return (
@@ -11,9 +12,7 @@ function MainLayout({ children }) {
         {children}
       </main>
 
-      <footer>
-        Footer will go here
-      </footer>
+      <Footer />
     </div>
   );
 }
