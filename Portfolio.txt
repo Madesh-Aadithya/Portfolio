@@ -2697,3 +2697,157 @@ Contact
 
 ------------------------------------------------------------------------------------------------------------------------------
 
+# Step 16 — Build the Footer
+
+Now we'll finish the **basic public portfolio structure** with a footer.
+
+This step is small. We're only creating the footer; styling and animations will come later.
+
+---
+
+## 16.1 Create `Footer.jsx`
+
+Create:
+
+```text
+src/components/layout/Footer.jsx
+```
+
+Add:
+
+```jsx
+function Footer() {
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <footer className="border-t border-white/10 px-6 py-8">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 text-sm text-white/40 sm:flex-row">
+
+        <p>
+          © {currentYear} Madesh. All rights reserved.
+        </p>
+
+        <p>
+          Built with React & Tailwind CSS.
+        </p>
+
+      </div>
+    </footer>
+  );
+}
+
+export default Footer;
+```
+
+### Small thing to notice
+
+Instead of writing:
+
+```jsx
+© 2026
+```
+
+we use:
+
+```jsx
+new Date().getFullYear()
+```
+
+That means the year updates automatically.
+
+---
+
+# 16.2 Add Footer to `MainLayout`
+
+Open:
+
+```text
+src/components/layout/MainLayout.jsx
+```
+
+Replace it with:
+
+```jsx
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+
+function MainLayout({ children }) {
+  return (
+    <div className="min-h-screen">
+      <header>
+        <Navbar />
+      </header>
+
+      <main>
+        {children}
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
+
+export default MainLayout;
+```
+
+---
+
+# 16.3 Test
+
+Scroll all the way to the bottom.
+
+You should see:
+
+```text
+────────────────────────────────────────
+
+© 2026 Madesh. All rights reserved.
+
+              Built with React & Tailwind CSS.
+```
+
+---
+
+# 16.4 Commit
+
+```bash
+git add .
+git commit -m "Add portfolio footer"
+git push
+```
+
+---
+
+## Current architecture
+
+You've now built the complete basic public page:
+
+```text
+App
+│
+└── BrowserRouter
+    │
+    └── /
+        │
+        └── MainLayout
+            │
+            ├── Navbar
+            │
+            ├── Home
+            │   ├── Hero
+            │   ├── About
+            │   ├── Skills
+            │   ├── Projects
+            │   ├── Certifications
+            │   └── Contact
+            │
+            └── Footer
+```
+
+That's a solid foundation.
+
+### Next → Step 17
+
+We'll stop adding sections and start **making the existing portfolio look genuinely modern**.
+
+First up: **proper typography, spacing, accent colors, and visual hierarchy**.
