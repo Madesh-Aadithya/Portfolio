@@ -1404,3 +1404,157 @@ That's it for Step 8.
 
 
 ------------------------------------------------------------------------------------------------------------------------------
+
+# Step 9 — Build the Navbar
+
+Now we'll turn our basic navbar into a proper modern portfolio navbar.
+
+We'll keep this step focused only on the **desktop navbar**. Mobile navigation comes later.
+
+---
+
+## 9.1 Replace `Navbar.jsx`
+
+Open:
+
+```text
+src/components/layout/Navbar.jsx
+```
+
+Replace the entire file with:
+
+```jsx
+function Navbar() {
+  const navItems = [
+    { name: "About", id: "about" },
+    { name: "Skills", id: "skills" },
+    { name: "Projects", id: "projects" },
+    { name: "Certificates", id: "certificates" },
+    { name: "Contact", id: "contact" },
+  ];
+
+  const handleScroll = (id) => {
+    document.getElementById(id)?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
+  return (
+    <nav className="fixed top-0 left-0 z-50 w-full border-b border-white/10 bg-black/70 backdrop-blur-lg">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        
+        {/* Logo */}
+        <button
+          onClick={() => handleScroll("home")}
+          className="text-xl font-bold tracking-tight"
+        >
+          Madesh
+        </button>
+
+        {/* Navigation */}
+        <div className="flex items-center gap-6">
+          {navItems.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => handleScroll(item.id)}
+              className="text-sm text-white/70 transition hover:text-white"
+            >
+              {item.name}
+            </button>
+          ))}
+        </div>
+
+      </div>
+    </nav>
+  );
+}
+
+export default Navbar;
+```
+
+---
+
+## 9.2 Why these classes?
+
+You don't need to memorize them.
+
+For example:
+
+```text
+fixed
+```
+
+keeps the navbar at the top while scrolling.
+
+```text
+bg-black/70
+```
+
+means black with 70% opacity.
+
+```text
+backdrop-blur-lg
+```
+
+creates the glass effect.
+
+```text
+border-b border-white/10
+```
+
+adds a subtle bottom border.
+
+```text
+transition hover:text-white
+```
+
+makes the text smoothly brighten when you hover.
+
+---
+
+## 9.3 Test it
+
+Refresh the browser.
+
+You should now have something like:
+
+```text
+┌──────────────────────────────────────────────────────────┐
+│ Madesh        About Skills Projects Certificates Contact │
+└──────────────────────────────────────────────────────────┘
+│                                                          │
+│                  Hello, I'm Madesh                       │
+│                                                          │
+```
+
+Scroll down.
+
+The navbar should remain at the top.
+
+---
+
+## 9.4 One small issue
+
+Our Hero currently starts at the very top of the page, so the fixed navbar can cover some content.
+
+We'll solve that properly when we build the Hero section.
+
+**Don't change anything else yet.**
+
+---
+
+## 9.5 Commit
+
+```bash
+git add .
+git commit -m "Build modern portfolio navbar"
+git push
+```
+
+That's Step 9.
+
+**Next → Step 10: Build the Hero section.** This is where the portfolio starts looking like an actual professional website.
+
+
+------------------------------------------------------------------------------------------------------------------------------
+
